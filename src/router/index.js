@@ -25,7 +25,7 @@ const routes = [
     //朝狀路由
     children: [
       {
-        path: 'products',
+        path: '/products',
         component: () => import('../views/Products.vue'),
       },
     ],

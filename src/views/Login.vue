@@ -39,6 +39,7 @@
 	  data() {
 		  return {
 			  user: {
+				  //需對應後端給的名稱
 				  username: '',
 				  password: '',
 			  },
@@ -47,12 +48,15 @@
 	  methods: {
 		  signIn() {
 			  const api = `${process.env.VUE_APP_API}/admin/signin`;
+			  //this.$http是axios套件
 			  this.$http.post(api, this.user)
 			  	.then((res) => {
-					  const { token, expired} = res.data;
-					  document.cookie = `hexToken = ${token}; expires=${new Date (expired)};`;
-					  this.$router.push('/dahboard/products');
-				  });
+					  if(res.data.success) {
+						  const { token, expired} = res.data;
+						  document.cookie = `hexToken = ${token}; expires=${new Date (expired)};`;
+						  this.$router.push('/dahboard/products');
+					  }
+				});
 		  },
 	  },
   };
